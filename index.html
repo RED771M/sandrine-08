@@ -1,79 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Feliz Aniversário!</title>
+    <title>Surpresa de Aniversário</title>
     <style>
-        :root { --bg: #0f172a; --accent: #8b5cf6; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow: hidden; }
         
-        .card {
-            z-index: 1; padding: 3rem; border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            max-width: 80%; transition: transform 0.5s ease;
+        /* Fundo Inicial */
+        #tela-inicial {
+            height: 100vh;
+            background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: opacity 0.5s;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #8b5cf6, #ec4899); -webkit-background-clip: text; color: transparent; }
-        
+        /* Fundo Animado e Colorido */
+        #tela-surpresa {
+            display: none;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         button {
-            padding: 12px 30px; cursor: pointer;
-            background: var(--accent); border: none; border-radius: 50px;
-            color: white; font-weight: bold; font-size: 1rem; transition: 0.3s;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            border: none;
+            background: #fff;
+            color: #333;
         }
-        
-        #surpresa {
-            display: none; margin-top: 20px; padding: 20px;
-            background: rgba(255,255,255,0.1); border-radius: 15px;
-            animation: fadeIn 1s ease-in;
+
+        textarea {
+            width: 80%;
+            height: 200px;
+            padding: 20px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-<canvas id="particleCanvas"></canvas>
-
-<div class="card" id="card">
-    <h1>Parabéns, Irmã! 🎉</h1>
-    <p>Hoje e bu diaa. espero qu gostes.</p>
-    <button onclick="mostrarSurpresa()">Clique para uma surpresa</button>
-    
-    <div id="surpresa">
-        <h2 style="color: #fbbf24;">E ka txeu mas e de corason! 🎂✨</h2>
-        <p>Obrigado pa sempre bu sta li oras kim meste e horas kim ka mst tmb i love uuu .</p>
+    <div id="tela-inicial">
+        <h1>Parabéns, Irmã! 🎂</h1>
+        <button onclick="mostrarSurpresa()">Clique para sua surpresa</button>
     </div>
-</div>
 
-<script>
-    function mostrarSurpresa() {
-        document.getElementById('surpresa').style.display = 'block';
-    }
+    <div id="tela-surpresa">
+        <h2 style="color: white; text-shadow: 2px 2px 4px #000;">Escreva sua mensagem aqui:</h2>
+        <textarea placeholder="Digite seu texto carinhoso para ela aqui..."></textarea>
+    </div>
 
-    // Código das partículas permanece igual...
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-        constructor() { this.reset(); }
-        reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 2; this.speedX = Math.random() * 1 - 0.5; this.speedY = Math.random() * 1 - 0.5; }
-        update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset(); }
-        draw() { ctx.fillStyle = 'white'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
-    }
-    for(let i=0; i<100; i++) particles.push(new Particle());
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-    animate();
-</script>
+    <script>
+        function mostrarSurpresa() {
+            document.getElementById('tela-inicial').style.display = 'none';
+            document.getElementById('tela-surpresa').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
