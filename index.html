@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow: hidden; background: #090a0f; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; background: #090a0f; }
 
-        /* TELA 1 */
+        /* TELA 1: Efeito de Pulsar no botão */
         #tela-inicial {
             height: 100vh;
             background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
@@ -13,34 +13,48 @@
         }
 
         .cartao {
-            background: rgba(45, 55, 72, 0.9);
-            padding: 40px; border-radius: 15px;
+            background: rgba(45, 55, 72, 0.8);
+            padding: 50px; border-radius: 25px;
             color: white; text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 30px rgba(100, 100, 255, 0.3);
         }
 
-        /* TELA 2: Fundo animado com estrelas e corações */
+        button {
+            padding: 15px 40px; font-size: 1.2rem; cursor: pointer;
+            border-radius: 50px; border: none; background: #ff4757; color: white;
+            animation: pulse 2s infinite; transition: 0.3s;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px #ff4757; }
+            100% { transform: scale(1); }
+        }
+
+        /* TELA 2: Fundo de festa */
         #tela-surpresa {
             display: none; height: 100vh;
             background: #0d0d1a;
             position: relative;
             justify-content: center; align-items: center;
-            flex-direction: column; color: white;
-            text-align: center;
+            flex-direction: column; color: white; text-align: center;
         }
 
-        .elemento {
-            position: absolute; color: white;
-            animation: mover 10s linear infinite;
+        .titulo-arco-iris {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: brilho 3s infinite;
         }
+        @keyframes brilho { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(90deg); } }
 
-        @keyframes mover {
-            0% { transform: translateY(100vh); opacity: 0; }
+        .elemento { position: absolute; font-size: 2rem; animation: flutuar 8s linear infinite; }
+        @keyframes flutuar { 
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(-10vh); opacity: 0; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
-
-        button { padding: 10px 25px; border-radius: 20px; border: none; cursor: pointer; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -49,25 +63,28 @@
         <div class="cartao">
             <h1>Parabéns, Irmã! 🍰</h1>
             <p>Hoje é bu dia. Espero qu gostes.</p>
-            <button onclick="revelar()">Clique para uma surpresa</button>
+            <button onclick="revelar()">Clique para sua surpresa</button>
         </div>
     </div>
 
     <div id="tela-surpresa">
-        <h1 style="z-index: 10;">Feliz Aniversário!</h1>
-        <p style="font-size: 1.5rem; z-index: 10;">Escreva sua frase aqui no código.</p>
+        <h1 class="titulo-arco-iris">Feliz Aniversário!</h1>
+        <p style="font-size: 1.8rem; margin: 20px;">Escreva aqui a sua mensagem especial para ela.</p>
 
-        <div class="elemento" style="left: 10%; animation-delay: 0s;">⭐</div>
-        <div class="elemento" style="left: 30%; animation-delay: 2s;">❤️</div>
-        <div class="elemento" style="left: 50%; animation-delay: 4s;">✨</div>
-        <div class="elemento" style="left: 70%; animation-delay: 6s;">❤️</div>
-        <div class="elemento" style="left: 90%; animation-delay: 8s;">⭐</div>
+        <div class="elemento" style="left: 5%; animation-delay: 0s;">❤️</div>
+        <div class="elemento" style="left: 20%; animation-delay: 2s;">⭐</div>
+        <div class="elemento" style="left: 45%; animation-delay: 4s;">✨</div>
+        <div class="elemento" style="left: 70%; animation-delay: 1s;">❤️</div>
+        <div class="elemento" style="left: 90%; animation-delay: 3s;">⭐</div>
     </div>
 
     <script>
         function revelar() {
-            document.getElementById('tela-inicial').style.display = 'none';
-            document.getElementById('tela-surpresa').style.display = 'flex';
+            document.getElementById('tela-inicial').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('tela-inicial').style.display = 'none';
+                document.getElementById('tela-surpresa').style.display = 'flex';
+            }, 500);
         }
     </script>
 </body>
