@@ -6,7 +6,6 @@
     <style>
         :root { --bg: #0f172a; --accent: #8b5cf6; }
         body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        
         canvas { position: absolute; top: 0; left: 0; z-index: 0; }
         
         .card {
@@ -14,33 +13,50 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
             text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            max-width: 80%;
+            max-width: 80%; transition: transform 0.5s ease;
         }
 
-        h1 { font-size: 3rem; background: linear-gradient(to right, #8b5cf6, #ec4899); -webkit-background-clip: text; color: transparent; }
+        h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #8b5cf6, #ec4899); -webkit-background-clip: text; color: transparent; }
         
         button {
-            margin-top: 20px; padding: 10px 25px; cursor: pointer;
+            padding: 12px 30px; cursor: pointer;
             background: var(--accent); border: none; border-radius: 50px;
-            color: white; font-weight: bold; transition: 0.3s;
+            color: white; font-weight: bold; font-size: 1rem; transition: 0.3s;
         }
+        
+        #surpresa {
+            display: none; margin-top: 20px; padding: 20px;
+            background: rgba(255,255,255,0.1); border-radius: 15px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <canvas id="particleCanvas"></canvas>
 
-<div class="card">
+<div class="card" id="card">
     <h1>Parabéns, Irmã! 🎉</h1>
-    <p>Hoje o dia é todo seu. Que seu novo ciclo seja repleto de código limpo e vida brilhante.</p>
-    <button onclick="alert('Te amo, mana! 🎂')">Clique para uma surpresa</button>
+    <p>Hoje o dia é todo seu. Que seu novo ciclo seja repleto de brilho.</p>
+    <button onclick="mostrarSurpresa()">Clique para uma surpresa</button>
+    
+    <div id="surpresa">
+        <h2 style="color: #fbbf24;">Te amo muito, mana! 🎂✨</h2>
+        <p>Obrigado por estares sempre comigo.</p>
+    </div>
 </div>
 
 <script>
+    function mostrarSurpresa() {
+        document.getElementById('surpresa').style.display = 'block';
+    }
+
+    // Código das partículas permanece igual...
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
-    
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.addEventListener('resize', resize);
     resize();
@@ -51,9 +67,7 @@
         update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset(); }
         draw() { ctx.fillStyle = 'white'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
     }
-
     for(let i=0; i<100; i++) particles.push(new Particle());
-
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });
