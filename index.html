@@ -27,20 +27,21 @@
         }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px #ff4757; } }
 
-        /* TELA 2 */
+        /* TELA 2: Fundo super animado */
         #tela-surpresa {
             display: none; height: 100vh;
-            background: #0d0d1a;
+            background: radial-gradient(circle at center, #1e1e2f 0%, #050508 100%);
             position: relative;
             justify-content: center; align-items: center;
             flex-direction: column; color: white; text-align: center;
         }
 
         .bloco-carta {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px; border-radius: 20px;
-            max-width: 800px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px; border-radius: 20px;
+            max-width: 700px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
         }
 
         .titulo-arco-iris {
@@ -49,15 +50,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: brilho 3s infinite;
-            margin-bottom: 20px;
         }
         @keyframes brilho { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(90deg); } }
 
-        .elemento { position: absolute; font-size: 2rem; animation: flutuar 8s linear infinite; pointer-events: none; }
-        @keyframes flutuar { 
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+        /* Partículas animadas espalhadas por toda a tela */
+        .particula { position: absolute; font-size: 1.5rem; animation: cair linear infinite; pointer-events: none; }
+        @keyframes cair { 
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -87,11 +88,19 @@
             </p>
         </div>
 
-        <div class="elemento" style="left: 10%; animation-delay: 0s;">⭐</div>
-        <div class="elemento" style="left: 30%; animation-delay: 2s;">❤️</div>
-        <div class="elemento" style="left: 50%; animation-delay: 4s;">✨</div>
-        <div class="elemento" style="left: 70%; animation-delay: 6s;">❤️</div>
-        <div class="elemento" style="left: 90%; animation-delay: 8s;">⭐</div>
+        <!-- Fundo ultra animado com 20 partículas -->
+        <script>
+            const tipos = ['❤️', '⭐', '✨', '🎂', '🎈'];
+            for(let i=0; i<20; i++) {
+                let p = document.createElement('div');
+                p.className = 'particula';
+                p.innerText = tipos[Math.floor(Math.random()*tipos.length)];
+                p.style.left = Math.random()*100 + '%';
+                p.style.animationDuration = (Math.random()*5 + 5) + 's';
+                p.style.animationDelay = Math.random()*5 + 's';
+                document.getElementById('tela-surpresa').appendChild(p);
+            }
+        </script>
     </div>
 
     <script>
