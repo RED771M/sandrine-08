@@ -5,7 +5,7 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; background: #090a0f; }
 
-        /* TELA 1: Efeito de Pulsar no botão */
+        /* TELA 1 */
         #tela-inicial {
             height: 100vh;
             background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
@@ -25,13 +25,9 @@
             border-radius: 50px; border: none; background: #ff4757; color: white;
             animation: pulse 2s infinite; transition: 0.3s;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); box-shadow: 0 0 20px #ff4757; }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px #ff4757; } }
 
-        /* TELA 2: Fundo de festa */
+        /* TELA 2 */
         #tela-surpresa {
             display: none; height: 100vh;
             background: #0d0d1a;
@@ -40,16 +36,24 @@
             flex-direction: column; color: white; text-align: center;
         }
 
+        .bloco-carta {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px; border-radius: 20px;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .titulo-arco-iris {
-            font-size: 3.5rem;
+            font-size: 3rem;
             background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: brilho 3s infinite;
+            margin-bottom: 20px;
         }
         @keyframes brilho { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(90deg); } }
 
-        .elemento { position: absolute; font-size: 2rem; animation: flutuar 8s linear infinite; }
+        .elemento { position: absolute; font-size: 2rem; animation: flutuar 8s linear infinite; pointer-events: none; }
         @keyframes flutuar { 
             0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
             50% { opacity: 1; }
@@ -62,39 +66,32 @@
     <div id="tela-inicial">
         <div class="cartao">
             <h1>Parabéns, Irmã! 🍰</h1>
-            <p>Hoje é bu dia. nta spera mo ta gosta.</p>
+            <p>Hoje é bu dia. N ta spera ma bu ta gosta.</p>
             <button onclick="revelar()">kalka li kkkkkk</button>
         </div>
     </div>
 
     <div id="tela-surpresa">
-        <h1 class="titulo-arco-iris">Feliz Aniversário!</h1>
-        <p style="font-size: 1.8rem; margin: 20px;">Parabens Zelineeeodja obrigado.</p>
- <p style="font-size: 1.8rem; margin: 20px;">Pa bu sta na nh lado td hora e pa bh ser kel alguen kbh e.</p>
- <p style="font-size: 1.8rem; margin: 20px;">nta spera q Deus realiza td bus sonhos e iluminou bu caminho.</p>
- <p style="font-size: 1.8rem; margin: 20px;">e pabh sab ma sempre sta li pa horas kbh meste e k bh ka meste.</p>
- <p style="font-size: 1.8rem; margin: 20px;">te pode parce man nka ta importa mas la na fundo nta importa kbh .</p>
- <p style="font-size: 1.8rem; margin: 20px;">mas ki nta inporta ko nha proprio pessoa .</p>
- <p style="font-size: 1.8rem; margin: 20px;">dja sta bom nka sab ncrev kkkkkkkkkkkkkkkkkkkkkkkkkkk.</p>
- <p style="font-size: 1.8rem; margin: 20px;">link li ka custan nada d dinhero mas nfazel ko txeu amor ok.</p>
- <p style="font-size: 1.8rem; margin: 20px;">E nada mas a falar djo sab man gosta dbh ntom PARABENS  seja feliz ❤️❤️❤️❤️.</p>
+        <div class="bloco-carta">
+            <h1 class="titulo-arco-iris">Feliz Aniversário!</h1>
+            <p style="font-size: 1.2rem; line-height: 1.6;">
+                Parabens Zelineeeodja obrigado.<br>
+                Pa bu sta na nh lado td hora e pa bu ser kel alguen k bu e.<br>
+                N ta spera q Deus realiza td bus sonhos e ilumina bu caminho.<br>
+                E pa bu sabe ma sempre sta li pa horas k bu meste e k bu ka meste.<br>
+                Te pode parce ma n ka ta importa mas la na fundo n ta importa k bu,<br>
+                mas ki n ta importa ko nha proprio pessoa.<br>
+                Dja sta bom n ka sabe n creve kkkkkkkkkkkkkkkkkkkkkkkkkkk.<br>
+                Link li ka custa nada d dinhero mas n fazel ko txeu amor ok.<br>
+                E nada mas a falar djo sabe ma n gosta d bu ntom PARABENS seja feliz ❤️❤️❤️❤️.
+            </p>
+        </div>
 
-        
         <div class="elemento" style="left: 10%; animation-delay: 0s;">⭐</div>
         <div class="elemento" style="left: 30%; animation-delay: 2s;">❤️</div>
         <div class="elemento" style="left: 50%; animation-delay: 4s;">✨</div>
         <div class="elemento" style="left: 70%; animation-delay: 6s;">❤️</div>
         <div class="elemento" style="left: 90%; animation-delay: 8s;">⭐</div>
-        <div class="elemento" style="left: 10%; animation-delay: 0s;">⭐</div>
-        <div class="elemento" style="left: 30%; animation-delay: 2s;">❤️</div>
-        <div class="elemento" style="left: 50%; animation-delay: 4s;">✨</div>
-        <div class="elemento" style="left: 70%; animation-delay: 6s;">❤️</div>
-        <div class="elemento" style="left: 90%; animation-delay: 8s;">⭐</div>
-        <div class="elemento" style="left: 5%; animation-delay: 0s;">❤️</div>
-        <div class="elemento" style="left: 20%; animation-delay: 2s;">⭐</div>
-        <div class="elemento" style="left: 45%; animation-delay: 4s;">✨</div>
-        <div class="elemento" style="left: 70%; animation-delay: 1s;">❤️</div>
-        <div class="elemento" style="left: 90%; animation-delay: 3s;">⭐</div>
     </div>
 
     <script>
