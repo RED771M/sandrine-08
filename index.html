@@ -2,36 +2,41 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Surpresa de Aniversário</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow: hidden; }
-        
-        /* Fundo Inicial */
-        #tela-inicial {
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+
+        /* Estilo comum para as telas */
+        .tela {
             height: 100vh;
-            background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
+            width: 100vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Fundo 1: Espaço */
+        #tela-1 {
+            background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
             color: white;
-            transition: opacity 0.5s;
+            z-index: 2;
         }
 
-        /* Fundo Animado e Colorido */
-        #tela-surpresa {
+        /* Fundo 2: Animado Colorido */
+        #tela-2 {
             display: none;
-            height: 100vh;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+            opacity: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
+            animation: gradient 15s ease infinite;
+            z-index: 1;
         }
 
-        @keyframes gradientBG {
+        @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -41,39 +46,46 @@
             padding: 15px 30px;
             font-size: 1.2rem;
             cursor: pointer;
-            border-radius: 50px;
+            border-radius: 30px;
             border: none;
-            background: #fff;
-            color: #333;
+            background: white;
+            transition: transform 0.2s;
         }
 
         textarea {
-            width: 80%;
-            height: 200px;
+            width: 70%;
+            height: 300px;
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 20px;
             border: none;
             font-size: 1.2rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.9);
         }
     </style>
 </head>
 <body>
 
-    <div id="tela-inicial">
+    <div id="tela-1" class="tela">
         <h1>Parabéns, Irmã! 🎂</h1>
-        <button onclick="mostrarSurpresa()">Clique para sua surpresa</button>
+        <button onclick="mudarTela()">Clique para a surpresa</button>
     </div>
 
-    <div id="tela-surpresa">
-        <h2 style="color: white; text-shadow: 2px 2px 4px #000;">Escreva sua mensagem aqui:</h2>
-        <textarea placeholder="Digite seu texto carinhoso para ela aqui..."></textarea>
+    <div id="tela-2" class="tela">
+        <h2 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Escreva sua mensagem aqui:</h2>
+        <textarea placeholder="Escreva aqui tudo o que você quer dizer para ela..."></textarea>
     </div>
 
     <script>
-        function mostrarSurpresa() {
-            document.getElementById('tela-inicial').style.display = 'none';
-            document.getElementById('tela-surpresa').style.display = 'flex';
+        function mudarTela() {
+            const t1 = document.getElementById('tela-1');
+            const t2 = document.getElementById('tela-2');
+            
+            t1.style.opacity = '0';
+            setTimeout(() => {
+                t1.style.display = 'none';
+                t2.style.display = 'flex';
+                setTimeout(() => { t2.style.opacity = '1'; }, 50);
+            }, 1000);
         }
     </script>
 </body>
